@@ -1,8 +1,10 @@
 package noemicoppotelli.appviaggiaziendali_backend.service;
 
 import noemicoppotelli.appviaggiaziendali_backend.entities.Dipendente;
-import noemicoppotelli.appviaggiaziendali_backend.entities.Prenotazione;
+import noemicoppotelli.appviaggiaziendali_backend.entities.Prenotazioni;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Viaggio;
+import noemicoppotelli.appviaggiaziendali_backend.exceptions.BadRequestExeception;
+import noemicoppotelli.appviaggiaziendali_backend.exceptions.NotFoundException;
 import noemicoppotelli.appviaggiaziendali_backend.repositories.DipendenteRepository;
 import noemicoppotelli.appviaggiaziendali_backend.repositories.PrenotazioniRepository;
 import noemicoppotelli.appviaggiaziendali_backend.repositories.ViaggioRepository;
@@ -12,13 +14,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class PrenotazioneService {
+public class PrenotazioniService {
 
     private final PrenotazioniRepository prenotazioneRepository;
     private final DipendenteRepository dipendenteRepository;
     private final ViaggioRepository viaggioRepository;
 
-    public PrenotazioneService(PrenotazioniRepository prenotazioneRepository,
+    public PrenotazioniService(PrenotazioniRepository prenotazioneRepository,
                                DipendenteRepository dipendenteRepository,
                                ViaggioRepository viaggioRepository) {
         this.prenotazioneRepository = prenotazioneRepository;
@@ -26,41 +28,41 @@ public class PrenotazioneService {
         this.viaggioRepository = viaggioRepository;
     }
 
-    public List<Prenotazione> findAll() {
+    public List<Prenotazioni> findAll() {
         return prenotazioneRepository.findAll();
     }
 
-    public Prenotazione findById(Long id) {
+    public Prenotazioni findById(Long id) {
         return prenotazioneRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Prenotazione non trovata"));
+                .orElseThrow(() -> new NotFoundException ("Prenotazione non trovata"));
     }
 
-    public Prenotazione save(Long dipendenteId, Long viaggioId, Prenotazione prenotazione) {
+    public Prenotazioni save(Long dipendenteId, Long viaggioId, Prenotazioni prenotazioni) {
         Dipendente dipendente = dipendenteRepository.findById(dipendenteId)
-                .orElseThrow(() -> new RuntimeException("Dipendente non trovato"));
+                .orElseThrow(() -> new NotFoundException("Dipendente non trovato"));
 
         Viaggio viaggio = viaggioRepository.findById(viaggioId)
-                .orElseThrow(() -> new RuntimeException("Viaggio non trovato"));
+                .orElseThrow(() -> new NotFoundException("Viaggio non trovato"));
 
         LocalDate giornoViaggio = viaggio.getDataViaggio();
 
         if (prenotazioneRepository.existsByDipendenteIdAndGiornoViaggio(dipendenteId, giornoViaggio)) {
-            throw new RuntimeException("Il dipendente ha già una prenotazione per questo giorno");
+            throw new BadRequestExeception("Il dipendente ha già una prenotazione per questo giorno");
         }
 
-        prenotazione.setDipendente(dipendente);
-        prenotazione.setViaggio(viaggio);
-        prenotazione.setGiornoViaggio(giornoViaggio);
+        prenotazioni.setDipendente(dipendente);
+        prenotazioni.setViaggio(viaggio);
+        prenotazioni.setGiornoViaggio(giornoViaggio);
 
-        if (prenotazione.getDataRichiesta() == null) {
-            prenotazione.setDataRichiesta(LocalDate.now());
+        if (prenotazioni.getDataRichiesta() == null) {
+            prenotazioni.setDataRichiesta(LocalDate.now());
         }
 
-        return prenotazioneRepository.save(prenotazione);
+        return prenotazioneRepository.save(prenotazioni);
     }
 
     public void delete(Long id) {
-        Prenotazione prenotazione = findById(id);
+        Prenotazioni prenotazione = findById(id);
         prenotazioneRepository.delete(prenotazione);
     }
 }
