@@ -1,7 +1,5 @@
 package noemicoppotelli.appviaggiaziendali_backend.entities;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 import jakarta.persistence.*;
 
 @Entity
@@ -23,5 +21,5 @@ public class Dipendente {
     @Column(nullable = false, unique = true)
     private String email;
     @Column(name = "profile_image_url")
-    private String profile_image_url;
+    private String profileImageUrl;
 }
