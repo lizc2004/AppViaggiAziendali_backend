@@ -1,11 +1,9 @@
 package noemicoppotelli.appviaggiaziendali_backend.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombork.AllConstructor;
-import lombork.Data;
-import NoArgsCostructor;
-import noemi.coppotelli.appViaggiAziendali_backend.emunus
+
 import noemicoppotelli.appviaggiaziendali_backend.enums.StatoViaggio;
 
 import java.time.LocalDate;
@@ -14,6 +12,7 @@ import java.time.LocalDate;
 @Table(name = "viaggi")
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 
 public class Viaggio {
     @Id

@@ -4,7 +4,7 @@ import noemicoppotelli.appviaggiaziendali_backend.entities.Dipendente;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Prenotazione;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Viaggio;
 import noemicoppotelli.appviaggiaziendali_backend.repositories.DipendenteRepository;
-import noemicoppotelli.appviaggiaziendali_backend.repositories.PrenotazioneRepository;
+import noemicoppotelli.appviaggiaziendali_backend.repositories.PrenotazioniRepository;
 import noemicoppotelli.appviaggiaziendali_backend.repositories.ViaggioRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +14,11 @@ import java.util.List;
 @Service
 public class PrenotazioneService {
 
-    private final PrenotazioneRepository prenotazioneRepository;
+    private final PrenotazioniRepository prenotazioneRepository;
     private final DipendenteRepository dipendenteRepository;
     private final ViaggioRepository viaggioRepository;
 
-    public PrenotazioneService(PrenotazioneRepository prenotazioneRepository,
+    public PrenotazioneService(PrenotazioniRepository prenotazioneRepository,
                                DipendenteRepository dipendenteRepository,
                                ViaggioRepository viaggioRepository) {
         this.prenotazioneRepository = prenotazioneRepository;

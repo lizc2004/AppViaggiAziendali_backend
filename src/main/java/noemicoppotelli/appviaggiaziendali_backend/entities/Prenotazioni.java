@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Table(
         name = "prenotazioni",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"dipendente_id", "viaggio_id", "data_richiesta","giorno_viaggio", "note", "preferenze"})
+                @UniqueConstraint(columnNames = {"dipendente_id", "giorno_viaggio"})
         }
 )
 @Data
@@ -23,18 +23,18 @@ public class Prenotazioni {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "dipendente_id", nullable = false, unique = true)
+    @JoinColumn(name = "dipendente_id", nullable = false)
     private Dipendente dipendente;
 
     @ManyToOne
-    @JoinColumn(name = "viaggio_id", nullable false)
+    @JoinColumn(name = "viaggio_id", nullable =false)
     private Viaggio viaggio;
 
     @Column(name = "data_richiesta", nullable = false)
     private LocalDate dataRichiesta;
 
-    @Column(name = "giorno_viaggio" nullable false,unique = true)
-    private LocalDate giorno_viaggio;
+    @Column(name = "giorno_viaggio" , nullable = false)
+    private LocalDate giornoViaggio;
 
     @Column(columnDefinition = "TEXT")
     private String note;
