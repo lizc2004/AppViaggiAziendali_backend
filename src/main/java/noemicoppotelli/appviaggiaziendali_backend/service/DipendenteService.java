@@ -1,9 +1,11 @@
 package noemicoppotelli.appviaggiaziendali_backend.service;
+import noemicoppotelli.appviaggiaziendali_backend.exceptions.BadRequestExeception;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Dipendente;
 import noemicoppotelli.appviaggiaziendali_backend.repositories.DipendenteRepository;
 import org.springframework.stereotype.Service;
+import noemicoppotelli.appviaggiaziendali_backend.exceptions.NotFoundException;
 
 import java.util.List;
 
@@ -22,16 +24,16 @@ public class DipendenteService {
 
     public Dipendente findById(Long id) {
         return dipendenteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Dipendente non trovato"));
+                .orElseThrow(() -> new NotFoundException("Dipendente non trovato"));
     }
 
     public Dipendente save(Dipendente dipendente) {
         if (dipendenteRepository.existsByUsername(dipendente.getUsername())) {
-            throw new RuntimeException("Username già esistente");
+            throw new BadRequestExeception("Username già esistente");
         }
 
         if (dipendenteRepository.existsByEmail(dipendente.getEmail())) {
-            throw new RuntimeException("Email già esistente");
+            throw new BadRequestExeception("Email già esistente");
         }
 
         return dipendenteRepository.save(dipendente);

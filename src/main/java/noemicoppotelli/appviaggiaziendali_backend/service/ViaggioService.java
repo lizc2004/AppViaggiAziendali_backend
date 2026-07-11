@@ -6,6 +6,8 @@ import noemicoppotelli.appviaggiaziendali_backend.repositories.ViaggioRepository
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import noemicoppotelli.appviaggiaziendali_backend.exceptions.NotFoundException;
+
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class ViaggioService {
 
     public Viaggio findById(Long id) {
         return viaggioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Viaggio non trovato"));
+                .orElseThrow(() -> new NotFoundException("Viaggio non trovato"));
     }
 
     public Viaggio save(Viaggio viaggio) {
