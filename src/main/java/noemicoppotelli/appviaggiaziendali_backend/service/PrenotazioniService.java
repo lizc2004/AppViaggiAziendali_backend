@@ -1,5 +1,6 @@
 package noemicoppotelli.appviaggiaziendali_backend.service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Dipendente;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Prenotazioni;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Viaggio;
@@ -28,8 +29,8 @@ public class PrenotazioniService {
         this.viaggioRepository = viaggioRepository;
     }
 
-    public List<Prenotazioni> findAll() {
-        return prenotazioneRepository.findAll();
+    public Page<Prenotazioni> findAll(Pageable pageable) {
+        return prenotazioneRepository.findAll(pageable);
     }
 
     public Prenotazioni findById(Long id) {

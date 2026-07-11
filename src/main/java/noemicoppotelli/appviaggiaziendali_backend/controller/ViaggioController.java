@@ -1,5 +1,6 @@
 package noemicoppotelli.appviaggiaziendali_backend.controller;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import jakarta.validation.Valid;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Viaggio;
 import noemicoppotelli.appviaggiaziendali_backend.enums.StatoViaggio;
@@ -20,8 +21,8 @@ public class ViaggioController {
     }
 
     @GetMapping
-    public List<Viaggio> getAll() {
-        return viaggioService.findAll();
+    public Page<Viaggio> getAll(Pageable pageable) {
+        return viaggioService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
@@ -30,12 +31,12 @@ public class ViaggioController {
     }
 
     @PostMapping
-    public Viaggio create(@RequestBody Viaggio viaggio) {
+    public Viaggio create(@Valid @RequestBody Viaggio viaggio) {
         return viaggioService.save(viaggio);
     }
 
     @PutMapping("/{id}")
-    public Viaggio update(@PathVariable Long id, @RequestBody Viaggio viaggio) {
+    public Viaggio update(@PathVariable Long id, @Valid @RequestBody Viaggio viaggio) {
         return viaggioService.update(id, viaggio);
     }
 

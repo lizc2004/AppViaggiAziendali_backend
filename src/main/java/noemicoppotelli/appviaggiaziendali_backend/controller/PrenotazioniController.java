@@ -1,5 +1,6 @@
 package noemicoppotelli.appviaggiaziendali_backend.controller;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Prenotazioni;
 import noemicoppotelli.appviaggiaziendali_backend.service.PrenotazioniService;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ public class PrenotazioniController {
     }
 
     @GetMapping
-    public List<Prenotazioni> getAll() {
-        return prenotazioniService.findAll();
+    public Page<Prenotazioni> getAll(Pageable pageable) {
+        return prenotazioniService.findAll(pageable);
     }
 
     @GetMapping("/{id}")

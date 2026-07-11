@@ -1,5 +1,6 @@
 package noemicoppotelli.appviaggiaziendali_backend.service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Dipendente;
 import noemicoppotelli.appviaggiaziendali_backend.repositories.DipendenteRepository;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ public class DipendenteService {
         this.dipendenteRepository = dipendenteRepository;
     }
 
-    public List<Dipendente> findAll() {
-        return dipendenteRepository.findAll();
+    public Page<Dipendente> findAll(Pageable pageable) {
+        return dipendenteRepository.findAll(pageable);
     }
 
     public Dipendente findById(Long id) {

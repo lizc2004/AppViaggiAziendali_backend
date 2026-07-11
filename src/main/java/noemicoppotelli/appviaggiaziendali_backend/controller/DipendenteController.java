@@ -1,5 +1,6 @@
 package noemicoppotelli.appviaggiaziendali_backend.controller;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import jakarta.validation.Valid;
 import noemicoppotelli.appviaggiaziendali_backend.entities.Dipendente;
 import noemicoppotelli.appviaggiaziendali_backend.service.DipendenteService;
@@ -19,8 +20,8 @@ public class DipendenteController {
     }
 
     @GetMapping
-    public List<Dipendente> getAll() {
-        return dipendenteService.findAll();
+    public Page<Dipendente> getAll(Pageable pageable) {
+        return dipendenteService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
@@ -29,12 +30,12 @@ public class DipendenteController {
     }
 
     @PostMapping
-    public Dipendente create(@RequestBody Dipendente dipendente) {
+    public Dipendente create( @Valid @RequestBody Dipendente dipendente) {
         return dipendenteService.save(dipendente);
     }
 
     @PutMapping("/{id}")
-    public Dipendente update(@PathVariable Long id, @RequestBody Dipendente dipendente) {
+    public Dipendente update(@PathVariable Long id, @Valid @RequestBody Dipendente dipendente) {
         return dipendenteService.update(id, dipendente);
     }
 
