@@ -3,6 +3,7 @@ import lombok.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "dipendenti")
@@ -17,6 +18,11 @@ public class Dipendente {
     @NotBlank(message = "Lo username è obbligatorio")
     @Column(nullable = false, unique = true)
     private String username;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotBlank(message = "La password è obbligatoria")
+    @Column(nullable = false)
+    private String password;
 
     @NotBlank(message = "Il nome è obbligatorio")
     @Column(nullable = false)

@@ -1,11 +1,12 @@
 package noemicoppotelli.appviaggiaziendali_backend.payloads;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginDTO {
-    private String email;
-    private String password;
+@AllArgsConstructor
+public class LoginResponseDTO {
+    private String token;
 }

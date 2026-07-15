@@ -6,6 +6,7 @@ import noemicoppotelli.appviaggiaziendali_backend.entities.Dipendente;
 import noemicoppotelli.appviaggiaziendali_backend.repositories.DipendenteRepository;
 import org.springframework.stereotype.Service;
 import noemicoppotelli.appviaggiaziendali_backend.exceptions.NotFoundException;
+import java.util.Optional;
 
 import java.util.List;
 
@@ -38,6 +39,9 @@ public class DipendenteService {
 
         return dipendenteRepository.save(dipendente);
     }
+    public Optional<Dipendente> findByEmail(String email) {
+        return dipendenteRepository.findByEmail(email);
+    }
 
     public Dipendente update(Long id, Dipendente updatedDipendente) {
         Dipendente dipendente = findById(id);
@@ -61,4 +65,6 @@ public class DipendenteService {
         dipendente.setProfileImageUrl(imageUrl);
         return dipendenteRepository.save(dipendente);
     }
+
+
 }
